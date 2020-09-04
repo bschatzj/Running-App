@@ -14,7 +14,7 @@ function Map(props) {
     latitude: 40,
     longitude: -104.7,
     zoom: 11,
-    width: '60vw',
+    width: '100%',
     height: '100%',
   })
 
@@ -78,7 +78,7 @@ function Map(props) {
 
           {props.Route.wayPoints.map(point => (
             <Marker  longitude={point.cords[0]} latitude={point.cords[1]} draggable={true} onDragStart={() =>{console.log(point.id)}} onDragEnd={(e) => {props.changeRoute(point.id, e.lngLat)}}>
-              <div style={{position:"absolute", bottom:"4px", left:"-15px", width:'25px', borderRadius:"100%", height:"25px", border:'3px solid black', backgroundColor:"orange"}}>
+              <div style={{position:"absolute", bottom:"4px", left:"-10px", width:'25px', borderRadius:"100%", height:"25px", border:'3px solid black', backgroundColor:"orange"}}>
 
               </div>
             </Marker>

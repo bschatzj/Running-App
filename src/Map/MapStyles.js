@@ -7,8 +7,9 @@ background-color: F9F9F9;
 `
 
 export const MapContain = styled.div`
-height: 100vh;
-width: 60vw;
+height: 60vh;
+width: 65%;
 background-color: black;
-margin-left: 39vw;
+margin-left: 35%;
+border-left: 1% solid black;
 `
