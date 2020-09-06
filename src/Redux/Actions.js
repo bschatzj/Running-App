@@ -63,8 +63,8 @@ export function getAlbum(url) {
   }
 }
 
-export function reorder(oldIndex, newIndex) {
+export function reorder(playlist) {
   return dispatch => {
-    dispatch({ type: REORDER, payload: { oldIndex, newIndex } })
+    dispatch({ type: REORDER, payload: playlist })
   }
 }

@@ -68,7 +68,7 @@ export function reducer(state = initialState, action) {
     case REORDER:
       return {
         ...state,
-        playList: arrayMove(state.playList, action.payload.oldIndex, action.payload.newIndex)
+        playList: action.payload
       }
     default:
       return state

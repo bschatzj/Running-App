@@ -2,16 +2,18 @@ import React, { useState, useEffect } from 'react';
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import _ from "lodash";
 import { v4 } from "uuid";
+import { connect } from 'react-redux';
+import { reorder } from '../../Redux/Actions'
 
 function App(props) {
-    console.log(props)
+
     const [state, setState] = useState({
-        "todo": {
+        "playlist": {
             title: "Current Playlist",
             items: []
         }
     })
-
+    console.log(state.playlist)
     const handleDragEnd = ({ destination, source }) => {
         if (!destination) {
             return
@@ -38,19 +40,19 @@ function App(props) {
     }
 
     const addItem = (song) => {
-        console.log(song)
         setState(prev => {
             return {
                 ...prev,
-                todo: {
+                playlist: {
                     title: "Current Playlist",
                     items: [
                         {
                             id: v4(),
                             name: song.name,
-                            length: song.duration_ms
+                            length: song.duration_ms ? song.duration_ms : song.length,
+                            spotify_id: song.id,
                         },
-                        ...prev.todo.items
+                        ...prev.playlist.items
                     ]
                 }
             }
@@ -60,12 +62,12 @@ function App(props) {
 
     useEffect(() => {
         setState({
-            "todo": {
+            "playlist": {
                 title: "Current Playlist",
                 items: []
             }
         })
-        props.data.map((song) => {
+        props.PlayList.map((song) => {
             addItem(song)
         })
     }, [props])
@@ -79,6 +81,7 @@ function App(props) {
 
     return (
         <div className="Playlist">
+            <button onClick={() => { props.reorder(state.playlist.items) }}>Save</button>
             <DragDropContext onDragEnd={handleDragEnd}>
                 {_.map(state, (data, key) => {
                     return (
@@ -127,4 +130,12 @@ function App(props) {
     );
 }
 
-export default App;
+const mapStateToProps = (state) => ({
+    PlayList: state.playList
+});
+
+const mapDispatchToProps = {
+    reorder,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
