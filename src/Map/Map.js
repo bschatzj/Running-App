@@ -120,23 +120,23 @@ function Map(props) {
                 "line-color": "#ed6498",
                 "line-width": 10,
                 'line-opacity': 0.8,
-                // 'length': [
-                //   'interpolate',
-                //   ['linear'],
-                //   ['line-progress'],
-                //   0,
-                //   'orange',
-                //   0.1,
-                //   'royalblue',
-                //   0.3,
-                //   'cyan',
-                //   0.5,
-                //   'lime',
-                //   0.7,
-                //   'yellow',
-                //   1,
-                //   'red'
-                // ]
+                'length': [
+                  'interpolate',
+                  ['linear'],
+                  ['line-progress'],
+                  0,
+                  'orange',
+                  0.1,
+                  'royalblue',
+                  0.3,
+                  'cyan',
+                  0.5,
+                  'lime',
+                  0.7,
+                  'yellow',
+                  1,
+                  'red'
+                ]
               }}
             />
           </Source>
