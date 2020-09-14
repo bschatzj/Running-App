@@ -4,15 +4,43 @@ import _ from "lodash";
 import { v4 } from "uuid";
 import { connect } from 'react-redux';
 import { reorder } from '../../Redux/Actions'
-
+import axios from 'axios'
 function App(props) {
 
+    const [playListTitle, setPlaylistTitle] = useState("")
     const [state, setState] = useState({
         "playlist": {
             title: "Current Playlist",
             items: []
         }
     })
+    const [spotifyID, setSpotifyID] = useState('')
+
+
+
+    useEffect(() => {
+        axios.get('https://api.spotify.com/v1/me', { headers: { "Authorization": 'Bearer ' + localStorage.getItem('spotify-token') } })
+            .then(res => { localStorage.setItem('spotify-id', res.data.id) })
+            .then(setSpotifyID(localStorage.getItem('spotify-id')))
+            .catch(err => { console.log(err) })
+
+    }, [])
+
+    const handleTitle = e => {
+        setPlaylistTitle(e.target.value)
+    }
+
+
+
+
+    function CreatePlalist() {
+        fetch(`https://api.spotify.com/v1/users/${spotifyID}/playlists`, { method: 'post', body: JSON.stringify({ name: playListTitle, public: false }), headers: { "Authorization": 'Bearer ' + localStorage.getItem('spotify-token') } })
+            .then(res => res.json())
+            .then(data => console.log(data))
+            .catch(err => { console.log(err) })
+    }
+
+
     console.log(state.playlist)
     const handleDragEnd = ({ destination, source }) => {
         if (!destination) {
@@ -46,13 +74,14 @@ function App(props) {
                 playlist: {
                     title: "Current Playlist",
                     items: [
+                        ...prev.playlist.items,
                         {
                             id: v4(),
                             name: song.name,
                             length: song.duration_ms ? song.duration_ms : song.length,
                             spotify_id: song.id,
                         },
-                        ...prev.playlist.items
+
                     ]
                 }
             }
@@ -81,7 +110,9 @@ function App(props) {
 
     return (
         <div className="Playlist">
-            <button onClick={() => { props.reorder(state.playlist.items) }}>Save</button>
+            <input placeholder="Playlist Title" onChange={handleTitle} value={playListTitle} />
+            <h1>{playListTitle}</h1>
+            <button onClick={() => CreatePlalist()}>Save</button>
             <DragDropContext onDragEnd={handleDragEnd}>
                 {_.map(state, (data, key) => {
                     return (
