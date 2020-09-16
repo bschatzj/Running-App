@@ -36,7 +36,7 @@ function App(props) {
     function CreatePlalist() {
         fetch(`https://api.spotify.com/v1/users/${spotifyID}/playlists`, { method: 'post', body: JSON.stringify({ name: playListTitle, public: false }), headers: { "Authorization": 'Bearer ' + localStorage.getItem('spotify-token') } })
             .then(res => res.json())
-            .then(data => console.log(data))
+            .then(data => localStorage.setItem('spotifyPlaylist', data.id))
             .catch(err => { console.log(err) })
     }
 
