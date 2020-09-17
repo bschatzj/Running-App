@@ -10,7 +10,7 @@ import Spotify from './spotifyAuth/SpotifyLogin';
 import SpotifyToken from './spotifyAuth/SpotifyToken';
 import SpotifySongs from './Spotify/Spotify';
 import Map from './Map/Map';
-import Home from './Home.js'
+import Home from './Home/Home.js'
 function App() {
   return (
     <>
