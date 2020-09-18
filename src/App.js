@@ -11,6 +11,7 @@ import SpotifyToken from './spotifyAuth/SpotifyToken';
 import SpotifySongs from './Spotify/Spotify';
 import Map from './Map/Map';
 import Home from './Home/Home.js'
+import AboutPage from './About/About';
 function App() {
   return (
     <>
@@ -23,6 +24,7 @@ function App() {
       <Route path="/music" component={SpotifyToken} />
       <Route path='/hi' component={SpotifySongs} />
       <Route path='/map' component={Map} />
+      <Route path='/about' component={AboutPage} />
     </>
   );
 }
