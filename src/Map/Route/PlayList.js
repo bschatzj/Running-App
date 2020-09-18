@@ -3,8 +3,10 @@ import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import _ from "lodash";
 import { v4 } from "uuid";
 import { connect } from 'react-redux';
-import { reorder } from '../../Redux/Actions'
+import { reorder, createPlaylist } from '../../Redux/Actions'
 import axios from 'axios'
+
+
 function App(props) {
 
     const [playListTitle, setPlaylistTitle] = useState("")
@@ -36,7 +38,7 @@ function App(props) {
     function CreatePlalist() {
         fetch(`https://api.spotify.com/v1/users/${spotifyID}/playlists`, { method: 'post', body: JSON.stringify({ name: playListTitle, public: false }), headers: { "Authorization": 'Bearer ' + localStorage.getItem('spotify-token') } })
             .then(res => res.json())
-            .then(data => localStorage.setItem('spotifyPlaylist', data.id))
+            .then(data => createPlaylist(data.id, playListTitle))
             .catch(err => { console.log(err) })
     }
 
@@ -162,11 +164,14 @@ function App(props) {
 }
 
 const mapStateToProps = (state) => ({
-    PlayList: state.playList
+    PlayList: state.playList,
+    PlayListTitle: state.playListTitle,
+    PlayListID: state.playListID
 });
 
 const mapDispatchToProps = {
     reorder,
+    createPlaylist
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

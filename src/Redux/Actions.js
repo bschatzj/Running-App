@@ -1,6 +1,17 @@
 import { axiosWithAuth } from '../Utils/AxiosWithAuth'
 export const ADDSONG = "ADDSONG", REMOVESONG = "REMOVESONG", ADDTOROUTE = "ADDTOROUTE", STARTROUTE = "STARTROUTE", CHANGEROUTE = "CHANGEROUTE",
-  SEARCHSUCCESS = "SEARCHSUCCESS", SEARCHFAIL = "SEARCHFAIL", SEARCHING = "SEARCHING", REORDER = "REORDER"
+  SEARCHSUCCESS = "SEARCHSUCCESS", SEARCHFAIL = "SEARCHFAIL", SEARCHING = "SEARCHING", REORDER = "REORDER", CREATEPLAYLIST = "CREATEPLAYLIST"
+
+
+
+export function createPlaylist(id, title) {
+  console.log('hi')
+  return dispatch => {
+    dispatch({ type: CREATEPLAYLIST, payload: { id, title } })
+  }
+}
+
+
 export function add(song) {
   return dispatch => {
     dispatch({ type: ADDSONG, payload: song })

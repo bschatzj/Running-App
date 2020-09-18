@@ -13,8 +13,7 @@ export default function Home() {
             <h1 className="welcome">Welcome to Running Jamz</h1>
             <div className="HomeButtonContain">
                 <button className="HomeButton" onClick={() => { History.push('/about') }}>More Info</button>
-                <button className="HomeButton">Log In</button>
-                <button className="HomeButton">Sign Up</button>
+                <button className="HomeButton" onClick={() => { History.push('/spotify') }}>Get Started</button>
             </div>
             <HeartBeat />
         </div>

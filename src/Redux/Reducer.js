@@ -1,8 +1,10 @@
-import { ADDSONG, REORDER, REMOVESONG, STARTROUTE, ADDTOROUTE, CHANGEROUTE, SEARCHSUCCESS, SEARCHING } from './Actions'
+import { ADDSONG, REORDER, REMOVESONG, STARTROUTE, ADDTOROUTE, CHANGEROUTE, SEARCHSUCCESS, SEARCHING, CREATEPLAYLIST } from './Actions'
 import { arrayMove } from 'react-sortable-hoc';
 
 const initialState = {
   playList: [],
+  playListTitle: "",
+  playListID: "",
   route: {
     title: '',
     distance: 0,
@@ -69,6 +71,13 @@ export function reducer(state = initialState, action) {
       return {
         ...state,
         playList: action.payload
+      }
+
+    case CREATEPLAYLIST:
+      return {
+        ...state,
+        playListTitle: action.payload.title,
+        playListID: action.payload.id
       }
     default:
       return state
