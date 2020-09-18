@@ -38,12 +38,12 @@ function App(props) {
     function CreatePlalist() {
         fetch(`https://api.spotify.com/v1/users/${spotifyID}/playlists`, { method: 'post', body: JSON.stringify({ name: playListTitle, public: false }), headers: { "Authorization": 'Bearer ' + localStorage.getItem('spotify-token') } })
             .then(res => res.json())
-            .then(data => createPlaylist(data.id, playListTitle))
+            .then(data => props.createPlaylist(data.id, playListTitle))
             .catch(err => { console.log(err) })
     }
 
 
-    console.log(state.playlist)
+
     const handleDragEnd = ({ destination, source }) => {
         if (!destination) {
             return
@@ -90,7 +90,7 @@ function App(props) {
         })
     }
 
-
+    console.log(props)
     useEffect(() => {
         setState({
             "playlist": {
@@ -110,16 +110,25 @@ function App(props) {
         return minutes + ":" + (seconds < 10 ? '0' : '') + seconds;
     }
 
+
+    useEffect(() => {
+        console.log(props)
+    }, [props])
+
     return (
         <div className="Playlist">
-            <input placeholder="Playlist Title" onChange={handleTitle} value={playListTitle} />
-            <h1>{playListTitle}</h1>
-            <button onClick={() => CreatePlalist()}>Save</button>
+            {props.PlayListTitle ? <div>
+                <h1>{playListTitle}</h1>
+            </div> :
+                <div>
+                    <input placeholder="Playlist Title" onChange={handleTitle} value={playListTitle} />
+
+                    <button onClick={() => CreatePlalist()}>Save</button>
+                </div>}
             <DragDropContext onDragEnd={handleDragEnd}>
                 {_.map(state, (data, key) => {
                     return (
                         <div key={key} className={"column"}>
-                            <h3>{data.title}</h3>
                             <Droppable droppableId={key}>
                                 {(provided, snapshot) => {
                                     return (

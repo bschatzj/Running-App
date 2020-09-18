@@ -74,6 +74,7 @@ export function reducer(state = initialState, action) {
       }
 
     case CREATEPLAYLIST:
+      console.log(action)
       return {
         ...state,
         playListTitle: action.payload.title,
