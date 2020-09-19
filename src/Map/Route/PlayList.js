@@ -8,7 +8,7 @@ import axios from 'axios'
 
 
 function App(props) {
-
+    const [created, setCreated] = useState(false)
     const [playListTitle, setPlaylistTitle] = useState("")
     const [state, setState] = useState({
         "playlist": {
@@ -38,7 +38,7 @@ function App(props) {
     function CreatePlalist() {
         fetch(`https://api.spotify.com/v1/users/${spotifyID}/playlists`, { method: 'post', body: JSON.stringify({ name: playListTitle, public: false }), headers: { "Authorization": 'Bearer ' + localStorage.getItem('spotify-token') } })
             .then(res => res.json())
-            .then(data => props.createPlaylist(data.id, playListTitle))
+            .then(data => props.createPlaylist(data.id, playListTitle), setCreated(true), setTimeout(function () { setCreated(false) }, 3000))
             .catch(err => { console.log(err) })
     }
 
@@ -117,6 +117,7 @@ function App(props) {
 
     return (
         <div className="Playlist">
+            {created ? <div className="CreatedMessage">Playlist created succesfully </div> : null}
             {props.PlayListTitle ? <div>
                 <h1>{playListTitle}</h1>
             </div> :
