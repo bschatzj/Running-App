@@ -176,7 +176,9 @@ function App(props) {
 const mapStateToProps = (state) => ({
     PlayList: state.playList,
     PlayListTitle: state.playListTitle,
-    PlayListID: state.playListID
+    PlayListID: state.playListID,
+    Route: state.route,
+    Pace: state.pace
 });
 
 const mapDispatchToProps = {

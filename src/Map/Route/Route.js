@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { startRoute, addRoute, search, getArtist, getAlbum, add, reorder } from '../../Redux/Actions'
+import { startRoute, addRoute, search, getArtist, getAlbum, add, reorder, setRunLength } from '../../Redux/Actions'
 import React, { useEffect, useState, useRef } from 'react';
 import Playlist from './PlayList'
 import './songs.css'
@@ -65,6 +65,7 @@ function Route(props) {
             for (let i = 0; i + 1 < points.length; i++) {
                 let distances = distance(points[i].cords[1], points[i].cords[0], points[i + 1].cords[1], points[i + 1].cords[0])
                 setTotalDistance(totalDistance => (totalDistance + distances))
+                props.setRunLength(totalDistance)
             }
         }
     }, [props])
@@ -191,6 +192,7 @@ const mapDispatchToProps = {
     getAlbum,
     add,
     reorder,
+    setRunLength,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Route);

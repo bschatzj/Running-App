@@ -1,6 +1,6 @@
 import { axiosWithAuth } from '../Utils/AxiosWithAuth'
 export const ADDSONG = "ADDSONG", REMOVESONG = "REMOVESONG", ADDTOROUTE = "ADDTOROUTE", STARTROUTE = "STARTROUTE", CHANGEROUTE = "CHANGEROUTE",
-  SEARCHSUCCESS = "SEARCHSUCCESS", SEARCHFAIL = "SEARCHFAIL", SEARCHING = "SEARCHING", REORDER = "REORDER", CREATEPLAYLIST = "CREATEPLAYLIST"
+  SEARCHSUCCESS = "SEARCHSUCCESS", SEARCHFAIL = "SEARCHFAIL", SEARCHING = "SEARCHING", REORDER = "REORDER", CREATEPLAYLIST = "CREATEPLAYLIST", RUNLENGTH = "RUNLENGTH"
 
 
 
@@ -60,6 +60,12 @@ export function getArtist(url) {
   }
 }
 
+
+export function setRunLength(distance) {
+  return dispatch => {
+    dispatch({ type: RUNLENGTH, payload: distance })
+  }
+}
 
 
 
