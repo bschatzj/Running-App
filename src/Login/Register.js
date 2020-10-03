@@ -12,7 +12,7 @@ export default function CreateAccount(props) {
     const handleSubmit = e => {
         e.preventDefault();
         axiosWithAuth()
-            .post('placeholder', form)
+            .post('register', form)
             .then(res => {
                 localStorage.setItem('id', res.data.id)
                 localStorage.setItem('token', res.data.token)

@@ -1,11 +1,10 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './App.css';
 import { Route, Router } from 'react-router-dom'
 import Run from './fitbit/runData';
 import { songs } from './song/songs.jsx';
 import Token from './fitbit/token';
 import HeartRate from './GraphStuff/heartRate';
-import Date from './GraphStuff/Date';
 import Spotify from './spotifyAuth/SpotifyLogin';
 import SpotifyToken from './spotifyAuth/SpotifyToken';
 import SpotifySongs from './Spotify/Spotify';
@@ -14,14 +13,24 @@ import Home from './Home/Home.js'
 import AboutPage from './About/About';
 import Login from './Login/Login'
 import Register from './Login/Register'
+import Profile from './Profile/Profile'
+
 
 
 function App() {
+  const [time, setTime] = useState()
+
+  useEffect(() => {
+    setTime(Date.now());
+    console.log(time)
+  }, [])
+
   return (
     <>
       <Route exact path="/" component={Home} />
       <Route path="/login" component={Login} />
       <Route path="/register" component={Register} />
+      <Route path="/profile" component={Profile} />
       <Route path="/auth"><Run /></Route>
       <Route path="/fitbit" component={Token} />
       <Route path="/heart" component={HeartRate} />
