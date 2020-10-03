@@ -34,16 +34,6 @@ function App(props) {
 
 
 
-
-    function CreatePlalist() {
-        fetch(`https://api.spotify.com/v1/users/${spotifyID}/playlists`, { method: 'post', body: JSON.stringify({ name: playListTitle, public: false }), headers: { "Authorization": 'Bearer ' + localStorage.getItem('spotify-token') } })
-            .then(res => res.json())
-            .then(data => props.createPlaylist(data.id, playListTitle), setCreated(true), setTimeout(function () { setCreated(false) }, 3000))
-            .catch(err => { console.log(err) })
-    }
-
-
-
     const handleDragEnd = ({ destination, source }) => {
         if (!destination) {
             return
@@ -117,15 +107,6 @@ function App(props) {
 
     return (
         <div className="Playlist">
-            {created ? <div className="CreatedMessage">Playlist created succesfully </div> : null}
-            {props.PlayListTitle ? <div>
-                <h1>{playListTitle}</h1>
-            </div> :
-                <div>
-                    <input placeholder="Playlist Title" onChange={handleTitle} value={playListTitle} />
-
-                    <button onClick={() => CreatePlalist()}>Save</button>
-                </div>}
             <DragDropContext onDragEnd={handleDragEnd}>
                 {_.map(state, (data, key) => {
                     return (

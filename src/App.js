@@ -14,16 +14,20 @@ import AboutPage from './About/About';
 import Login from './Login/Login'
 import Register from './Login/Register'
 import Profile from './Profile/Profile'
-
+import { useHistory } from "react-router-dom";
 
 
 function App() {
   const [time, setTime] = useState()
+  const history = useHistory()
 
   useEffect(() => {
+
     setTime(Date.now());
-    console.log(time)
-  }, [])
+    if (time > localStorage.getItem('spotifyTimeout')) {
+      history.push('/spotify')
+    }
+  }, [window.location])
 
   return (
     <>
