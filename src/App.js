@@ -12,10 +12,16 @@ import SpotifySongs from './Spotify/Spotify';
 import Map from './Map/Map';
 import Home from './Home/Home.js'
 import AboutPage from './About/About';
+import Login from './Login/Login'
+import Register from './Login/Register'
+
+
 function App() {
   return (
     <>
       <Route exact path="/" component={Home} />
+      <Route path="/login" component={Login} />
+      <Route path="/register" component={Register} />
       <Route path="/auth"><Run /></Route>
       <Route path="/fitbit" component={Token} />
       <Route path="/heart" component={HeartRate} />
