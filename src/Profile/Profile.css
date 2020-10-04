@@ -1,3 +1,38 @@
 .ProfilePage{
     background-color: rosybrown;
 }
+
+.PlaylistDiv{
+    background-color: royalblue;
+    width: 70%;
+    margin-left: 15%;
+    padding: 1%;
+    margin-top: 1%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: all 1s ease;
+    height: 30rem;
+    overflow: hidden;
+}
+
+.PlaylistButton{
+    width: 40%;
+    font-size: 2rem;
+    background-color: rgba(1, 1, 1, 0.267);
+    border: 2px solid whitesmoke;
+}
+
+
+.PlaylistDivClosed{
+    background-color: royalblue;
+    width: 70%;
+    margin-left: 15%;
+    padding: 1%;
+    margin-top: 1%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: all 2s ease;
+    height: 10rem;
+}

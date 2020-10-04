@@ -2,16 +2,19 @@ import React, { useEffect, useState } from 'react'
 import './Profile.css'
 import { axiosWithAuth } from "../Utils/AxiosWithAuthBack.js";
 import SpotifyAxios from '../Utils/AxiosWithAuth'
+import PlayList from '../Map/Route/PlayList';
+import { set } from 'animejs';
 
 export default function Profile() {
 
     const [profile, setProfile] = useState('')
     const [playlists, setPlaylists] = useState([])
     const [playListTitle, setPlaylistTitle] = useState("")
+    const [open, setOpen] = useState("")
     useEffect(() => {
 
         SpotifyAxios()
-            .get('/me/playlists')
+            .get(`/users/${localStorage.getItem('spotify-id')}/playlists`)
             .then(res => {
                 console.log(res)
                 setPlaylists(res.data.items)
@@ -36,8 +39,10 @@ export default function Profile() {
     }
 
     function CreatePlalist() {
-        fetch(`https://api.spotify.com/v1/users/${localStorage.getItem('spotify-id')}/playlists`, { method: 'post', body: JSON.stringify({ name: playListTitle, public: false }), headers: { "Authorization": 'Bearer ' + localStorage.getItem('spotify-token') } })
+        fetch(`https://api.spotify.com/v1/users/${localStorage.getItem('spotify-id')}/playlists`, { method: 'post', body: JSON.stringify({ name: playListTitle, public: true }), headers: { "Authorization": 'Bearer ' + localStorage.getItem('spotify-token') } })
             .then(res => res.json())
+            .then(res => { setPlaylists([...playlists, res]) })
+            .then(setPlaylistTitle(""))
             .catch(err => { console.log(err) })
     }
 
@@ -59,8 +64,19 @@ export default function Profile() {
                 My Playlists
                 {playlists.length > 0 ? <> {
                     playlists.map(playlist => (
-                        <div>
+                        <div className={playlist.name == open ? "PlaylistDiv" : "PlaylistDivClosed"}>
                             <h1>{playlist.name}</h1>
+
+                            {playlist.name == open ?
+                                <>
+                                    <h1>hi</h1>
+                                    <h1>HI!!! </h1>
+                                    <button className="PlaylistButton" onClick={() => { setOpen("") }}> Show Less</button>
+
+                                </>
+
+                                : <button className="PlaylistButton" onClick={() => { setOpen(playlist.name) }}>Show More</button>
+                            }
                         </div>
                     ))
                 } </> : <h1>You have no playlists!</h1>}
