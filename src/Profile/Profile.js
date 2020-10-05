@@ -64,7 +64,7 @@ export default function Profile() {
                 My Playlists
                 {playlists.length > 0 ? <> {
                     playlists.map(playlist => (
-                        <div className={playlist.name == open ? "PlaylistDiv" : "PlaylistDivClosed"}>
+                        <div id={playlist.name} className={playlist.name == open ? "PlaylistDiv" : "PlaylistDivClosed"}>
                             <h1>{playlist.name}</h1>
 
                             {playlist.name == open ?
@@ -75,7 +75,7 @@ export default function Profile() {
 
                                 </>
 
-                                : <button className="PlaylistButton" onClick={() => { setOpen(playlist.name) }}>Show More</button>
+                                : <button className="PlaylistButton" href={"#" + playlist.name} onClick={() => { setOpen(playlist.name) }}>Show More</button>
                             }
                         </div>
                     ))
